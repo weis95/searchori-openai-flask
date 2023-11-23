@@ -26,5 +26,6 @@ def summarize():
     return jsonify(summary=response.choices[0].message.content)
 
 
-if __name__ == "__main__":
- app.run()
+if __name__ == '__main__':
+    app.debug = True
+    app.run()
