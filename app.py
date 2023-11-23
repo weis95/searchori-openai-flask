@@ -7,6 +7,10 @@ app = Flask(__name__)
 def hello():
     return "Hello World!"
 
+@app.route("/hello", methods=["POST"])
+def hello_world():
+    return request.json.get('data')
+
 @app.route("/", methods=["POST"])
 def summarize():
     client = OpenAI(
