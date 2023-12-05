@@ -1,20 +1,20 @@
 from openai import OpenAI
 from flask import Flask, jsonify, request
+from flask_cors import CORS
+import os
 
 app = Flask(__name__)
+CORS(app)
 	
 @app.route("/", methods=["GET"])
 def hello():
     return "Hello World!"
 
-@app.route("/hello", methods=["POST"])
-def hello_world():
-    return request.json.get('data')
-
 @app.route("/", methods=["POST"])
 def summarize():
+    user = os.environ.get('OPENAI')
     client = OpenAI(
-        api_key="sk-<your-key>",
+        api_key=user,
     )
 
     data = request.json.get('data')
