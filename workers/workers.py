@@ -18,4 +18,4 @@ def translation_worker(news, lang):
                 for i, idx in enumerate(data['comments'][index]):
                     data['comments'][index][i] = GoogleTranslator(source=lang, target='en').translate(data['comments'][index][i])
     
-    requests.post('http://localhost:8000/articles', json = {'data': news})
+    requests.post('https://searchori.net/articles', json = {'data': news})
