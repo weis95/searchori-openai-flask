@@ -40,15 +40,15 @@ def start_translate():
     denmark = []
     sweden = []
     norway = []
-    print('json!!!', data['data'].json())
-    print('not json!!!', data['data'])
-    
-    for article in data['data'].json():
+
+    print(len(data.json()['data']))
+    for article in data.json()['data']:
+
         if article['country'] == 'denmark':
            denmark.append(article)
-        elif article['lang'] == 'sweden':
+        elif article['country'] == 'sweden':
             sweden.append(article)
-        elif article['lang'] == 'norway':
+        elif article['country'] == 'norway':
             norway.append(article)
     
     Thread(target = translation_worker, args=(denmark, 'da',)).start()
