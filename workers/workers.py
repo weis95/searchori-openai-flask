@@ -24,6 +24,6 @@ def translation_worker(news, lang):
         data['translated'] = True
     
     print('Done translating: ', lang)
-    resp = requests.patch('https://searchori.net/articles/update', json = {'data': news})
+    resp = requests.patch('https://searchori.net/articles/update', json = news)
     print(resp.text)
 
