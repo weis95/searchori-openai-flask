@@ -41,9 +41,7 @@ def start_translate():
     sweden = []
     norway = []
 
-    print(len(data.json()['data']))
     for article in data.json()['data']:
-
         if article['country'] == 'denmark':
            denmark.append(article)
         elif article['country'] == 'sweden':
@@ -51,6 +49,7 @@ def start_translate():
         elif article['country'] == 'norway':
             norway.append(article)
     
+    print(denmark)
     Thread(target = translation_worker, args=(denmark, 'da',)).start()
     Thread(target = translation_worker, args=(sweden, 'sv',)).start()
     Thread(target = translation_worker, args=(norway, 'no',)).start()
