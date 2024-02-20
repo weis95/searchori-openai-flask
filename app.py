@@ -49,7 +49,6 @@ def start_translate():
         elif article['country'] == 'norway':
             norway.append(article)
     
-    print(denmark)
     Thread(target = translation_worker, args=(denmark, 'da',)).start()
     Thread(target = translation_worker, args=(sweden, 'sv',)).start()
     Thread(target = translation_worker, args=(norway, 'no',)).start()
