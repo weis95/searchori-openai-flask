@@ -8,19 +8,26 @@ def translation_worker(news, lang):
     
     print(lang + ' :News to translate', len(news))
     for data in news:
-        data['title'] = GoogleTranslator(source=lang, target='en').translate(data['title'])
-        data['subheading'] = GoogleTranslator(source=lang, target='en').translate(data['subheading'])
-        if len(data['story']) != 0 and data['story'][0] != 'error':
+        if data['title'] != 'error':
+            data['title'] = GoogleTranslator(source=lang, target='en').translate(data['title'])
+
+        if data['subheading'] != 'error':
+            data['subheading'] = GoogleTranslator(source=lang, target='en').translate(data['subheading'])
+
+        if len(data['story']) != 0:
             for i, story in enumerate(data['story']):
-                data['story'][i] = GoogleTranslator(source=lang, target='en').translate(data['story'][i])
+                if(data['story'][i] != 'error'):
+                    data['story'][i] = GoogleTranslator(source=lang, target='en').translate(data['story'][i])
             
-            sentiment = getSentimentNLTK(data['title'] + ' '.join(data['story'][0]))
-            data['sentiment'] = sentiment
+            if data['title'] != 'error' and data['story'][0] != 'error':
+                sentiment = getSentimentNLTK(data['title'] + ' '.join(data['story'][0]))
+                data['sentiment'] = sentiment
         
-        if len(data['comments']) > 0:
+        if len(data['comments']) != 0:
             for index, comment in enumerate(data['comments']):
                 for i, idx in enumerate(data['comments'][index]):
                     data['comments'][index][i] = GoogleTranslator(source=lang, target='en').translate(data['comments'][index][i])
+       
         data['translated'] = True
     
     print('Done translating: ', lang)
