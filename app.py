@@ -48,10 +48,13 @@ def start_translate():
             sweden.append(article)
         elif article['country'] == 'norway':
             norway.append(article)
-    
-    Thread(target = translation_worker, args=(denmark, 'da',)).start()
-    Thread(target = translation_worker, args=(sweden, 'sv',)).start()
-    Thread(target = translation_worker, args=(norway, 'no',)).start()
+
+    if len(denmark) != 0:
+        Thread(target = translation_worker, args=(denmark, 'da',)).start()
+    if len(sweden) != 0:
+        Thread(target = translation_worker, args=(sweden, 'sv',)).start()
+    if len(norway) != 0:
+        Thread(target = translation_worker, args=(norway, 'no',)).start()
 
 
 if __name__ == '__main__':
