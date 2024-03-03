@@ -11,25 +11,6 @@ CORS(app)
 def hello():
     return "We are live Houston!"
 
-@app.route("/danish", methods=["POST"])
-def danish():
-    news = request.json.get('data')
-    Thread(target = translation_worker, args=(news, 'da',)).start()
-    return jsonify(action="success")
-
-
-@app.route("/swedish", methods=["POST"])
-def swedish():
-    news = request.json.get('data')
-    Thread(target = translation_worker, args=(news, 'sv',)).start()
-    return jsonify(action="success")
-
-@app.route("/norwegian", methods=["POST"])
-def norwegian():
-    news = request.json.get('data')
-    Thread(target = translation_worker, args=(news, 'no',)).start()
-    return jsonify(action="success")
-
 @app.route("/translate", methods=["GET"])
 def translate():
     Thread(target = start_translate).start()
@@ -37,25 +18,14 @@ def translate():
 
 def start_translate():
     data = requests.get('https://searchori.net/articles/translate')
-    denmark = []
-    sweden = []
-    norway = []
+    iran = []
 
     for article in data.json()['data']:
-        if article['country'] == 'denmark':
-           denmark.append(article)
-        elif article['country'] == 'sweden':
-            sweden.append(article)
-        elif article['country'] == 'norway':
-            norway.append(article)
+        if article['country'] == 'iran':
+            iran.append(article)
 
-    if len(denmark) != 0:
-        Thread(target = translation_worker, args=(denmark, 'da',)).start()
-    if len(sweden) != 0:
-        Thread(target = translation_worker, args=(sweden, 'sv',)).start()
-    if len(norway) != 0:
-        Thread(target = translation_worker, args=(norway, 'no',)).start()
-
+    if len(iran) != 0:
+        Thread(target = translation_worker, args=(iran, 'fa',)).start()
 
 if __name__ == '__main__':
     app.debug = True
