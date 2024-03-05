@@ -20,7 +20,11 @@ def translation_worker(news, lang):
                     data['story'][i] = GoogleTranslator(source=lang, target='en').translate(data['story'][i])
             
             if data['title'] != 'error' and data['story'][0] != 'error':
-                sentiment = getSentimentNLTK(data['title'] + ' '.join(data['story'][0]))
+               
+                story = ''.join(map(str, data['story']))
+                story[:30]
+               
+                sentiment = getSentimentNLTK(data['title'] + story)
                 data['sentiment'] = sentiment
         
         if len(data['comments']) != 0:
